@@ -72,6 +72,7 @@ fi
     --accept-tos \
     --key-type "rsa4096" \
     --email "$EMAIL" \
+    --dns.resolvers "1.1.1.1:53" \
     --dns "$DNS_PROVIDER" \
     "${DOMAINS[@]}" \
     "${LEGO_OPTIONS[@]}" \

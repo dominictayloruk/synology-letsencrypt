@@ -9,7 +9,7 @@ Uses [lego](https://go-acme.github.io/lego/) and the [ACME DNS-01 challenge](htt
 To **install** or **update** synology-letsencrypt, run the [install script](install.sh). To do that, either download and run the script manually, or use the following cURL command:
 
 ```sh
-curl -sSL https://raw.githubusercontent.com/JessThrysoee/synology-letsencrypt/master/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/dominictayloruk/synology-letsencrypt/master/install.sh | bash
 ```
 
 The script has to be run as root. To run it as root, you can SSH into your NAS with an admin user and then issue `sudo -i` to become root (the password is the same as the admin user's).
@@ -22,15 +22,13 @@ Update `/usr/local/etc/synology-letsencrypt/env` with domain(s), email, and DNS 
 DOMAINS=(--domains "example.com" --domains "*.example.com")
 EMAIL="user@example.com"
 
-# Specify DNS Provider (this example is from https://go-acme.github.io/lego/dns/simply/)
-DNS_PROVIDER="simply"
-export SIMPLY_ACCOUNT_NAME=XXXXXXX
-export SIMPLY_API_KEY=XXXXXXXXXX
-export SIMPLY_PROPAGATION_TIMEOUT=1800
-export SIMPLY_POLLING_INTERVAL=30
-
 # Should you need it; additional options can be passed directly to lego
 #LEGO_OPTIONS=(--key-type "rsa4096")
+
+# Specify DNS Provider (this example is from https://go-acme.github.io/lego/dns/cloudflare/)
+DNS_PROVIDER="cloudflare"
+export CF_API_EMAIL=user@example.com
+export CF_DNS_API_TOKEN=ThIsIsYoRSecReTAPIt0kEn
 ```
 
 Note: If you are generating a wildcard certificate, you must include the base domain next to the wildcard domain. For example, if you want to create a certificate for `*.example.com`, you must also include `example.com` in the `DOMAINS` value.
@@ -76,5 +74,5 @@ $ /usr/local/bin/synology-letsencrypt.sh -c
 To **uninstall** synology-letsencrypt, run the [uninstall script](uninstall.sh). To do that, either download and run the script manually, or use the following cURL command:
 
 ```sh
-curl -sSL https://raw.githubusercontent.com/JessThrysoee/synology-letsencrypt/master/uninstall.sh | bash
+curl -sSL https://raw.githubusercontent.com/dominictayloruk/synology-letsencrypt/master/uninstall.sh | bash
 ```

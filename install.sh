@@ -69,12 +69,10 @@ install_configuration() {
 DOMAINS=(--domains "example.com" --domains "*.example.com")
 EMAIL="user@example.com"
 
-## Specify DNS Provider (this example is from https://go-acme.github.io/lego/dns/simply/)
-DNS_PROVIDER="simply"
-export SIMPLY_ACCOUNT_NAME=XXXXXXX
-export SIMPLY_API_KEY=XXXXXXXXXX
-export SIMPLY_PROPAGATION_TIMEOUT=1800
-export SIMPLY_POLLING_INTERVAL=30
+## Specify DNS Provider (this example is from https://go-acme.github.io/lego/dns/cloudflare/)
+DNS_PROVIDER="cloudflare"
+export CF_API_EMAIL=user@example.com
+export CF_DNS_API_TOKEN=ThIsIsYoRSecReTAPIt0kEn
 EOF
     fi
 
