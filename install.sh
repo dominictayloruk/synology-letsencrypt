@@ -35,7 +35,7 @@ install_lego() {
     )"
 
     if [[ -z $url ]]; then
-        echo "Could not find lego download URL! Try a different architecture maybe? See '$0 -h'" >&2
+        echo "Could not find lego download URL for architecture '$ARCH'! Try a different architecture maybe? See '$0 -h'" >&2
         exit 1
     fi
 
@@ -69,10 +69,15 @@ install_configuration() {
 DOMAINS=(--domains "example.com" --domains "*.example.com")
 EMAIL="user@example.com"
 
-## Specify DNS Provider (this example is from https://go-acme.github.io/lego/dns/cloudflare/)
+# Specify DNS Provider (this example is from https://go-acme.github.io/lego/dns/cloudflare/)
 DNS_PROVIDER="cloudflare"
 export CF_API_EMAIL=user@example.com
 export CF_DNS_API_TOKEN=ThIsIsYoRSecReTAPIt0kEn
+
+# Should you need it; additional options can be passed directly to lego
+#LEGO_OPTIONS=(--key-type "rsa4096" --server "https://acme-staging-v02.api.letsencrypt.org/directory")
+#LEGO_RUN_OPTIONS=()
+#LEGO_RENEW_OPTIONS=(--ari-disable)
 EOF
     fi
 

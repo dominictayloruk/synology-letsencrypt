@@ -23,7 +23,9 @@ DOMAINS=(--domains "example.com" --domains "*.example.com")
 EMAIL="user@example.com"
 
 # Should you need it; additional options can be passed directly to lego
-#LEGO_OPTIONS=(--key-type "rsa4096")
+#LEGO_OPTIONS=(--key-type "rsa4096" --server "https://acme-staging-v02.api.letsencrypt.org/directory")
+#LEGO_RUN_OPTIONS=()
+#LEGO_RENEW_OPTIONS=(--ari-disable)
 
 # Specify DNS Provider (this example is from https://go-acme.github.io/lego/dns/cloudflare/)
 DNS_PROVIDER="cloudflare"
@@ -42,11 +44,13 @@ To schedule a daily task, log into the Synology DSM and add a user-defined scrip
           General -> User = root
           Task Settings -> User-defined script = /bin/bash /usr/local/bin/synology-letsencrypt.sh
 
+To secure services with the certificate, se the [Configure Certificates](https://kb.synology.com/en-global/DSM/help/DSM/AdminCenter/connection_certificate?version=7#b_64) documentation.
+
 ### Multiple Certificates
 
 If you need to generate more than one certificate, you can parameterize synology-letsencrypt.sh with the path of a certificate configuration:
 
-```shellsession
+```sh
 $ /usr/local/bin/synology-letsencrypt.sh -p /usr/local/bin/synology-letsencrypt/example.com
 $ /usr/local/bin/synology-letsencrypt.sh -p /usr/local/bin/synology-letsencrypt/other-example.com
 ```
@@ -65,7 +69,7 @@ if you want to generate a certificate for another host on your Synology.
 By default, `synology-letsencrypt.sh` will overwrite any changes you make to the
 hook script to preserve the core functionality of this client. If you have customized your script, you can preserve its changes by adding the `-c` parameter to your invocation:
 
-```shellsession
+```sh
 $ /usr/local/bin/synology-letsencrypt.sh -c
 ```
 
@@ -76,3 +80,7 @@ To **uninstall** synology-letsencrypt, run the [uninstall script](uninstall.sh).
 ```sh
 curl -sSL https://raw.githubusercontent.com/dominictayloruk/synology-letsencrypt/master/uninstall.sh | bash
 ```
+
+## Take a look at the [acme-dns](https://github.com/joohoi/acme-dns) project
+
+...if your DNS provider is not _directly_ supported by lego, or if you wish to avoid keeping DNS provider API-keys on your synology box. Lego supports [acme-dns](https://go-acme.github.io/lego/dns/acme-dns/).
